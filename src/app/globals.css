@@ -1,0 +1,161 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+:root {
+  --color-obsidian: #0f172a;
+  --color-indigo: #4f46e5;
+  --color-violet: #8b5cf6;
+  --color-ice: #f1f5f9;
+
+  /* AMOLED-black canvas: true black, with surfaces lifted just enough to read as cards */
+  --background: #000000;
+  --surface: #0a0a0d;
+  --surface-raised: #101014;
+  --foreground: #f5f5f7;
+  --foreground-muted: #9498a3;
+  --border-color: rgba(255, 255, 255, 0.09);
+}
+
+@theme inline {
+  --color-obsidian: var(--color-obsidian);
+  --color-indigo: var(--color-indigo);
+  --color-violet: var(--color-violet);
+  --color-ice: var(--color-ice);
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-border: var(--border-color);
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-work-sans);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+p,
+li {
+  line-height: 1.6;
+}
+
+.gradient-accent {
+  background-image: linear-gradient(135deg, var(--color-indigo), var(--color-violet));
+}
+
+.gradient-text {
+  background-image: linear-gradient(135deg, var(--color-indigo), var(--color-violet));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Thin fading gradient rule, used instead of flat borders between sections */
+.gradient-divider {
+  height: 1px;
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    rgba(139, 92, 246, 0.4),
+    rgba(79, 70, 229, 0.4),
+    transparent
+  );
+}
+
+/* Soft ambient glow, positioned per-section via inline style or utility overrides */
+.ambient-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Card outline as a soft gradient stroke instead of a flat, uniform border */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.55),
+    rgba(79, 70, 229, 0.35) 45%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.gradient-border:hover::before {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.85),
+    rgba(79, 70, 229, 0.55) 45%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+
+/* Liquid glass: translucent, blurred surface with a diagonal sheen and
+   inset edge highlights — the same material used by the navbar. */
+.liquid-glass {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(139, 92, 246, 0.07) 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.35),
+    0 4px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.liquid-glass:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.35),
+    0 8px 32px rgba(139, 92, 246, 0.18);
+}
+
+/* Gradient bars background — staggered pulse used by the hero equalizer */
+@keyframes gradient-bar-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scaleY(0.85);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scaleY(1.1);
+  }
+}
