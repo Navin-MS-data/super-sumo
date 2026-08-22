@@ -1,16 +1,16 @@
 import { Hero } from "@/components/sections/hero";
-import { About } from "@/components/sections/about";
 import { Services } from "@/components/sections/services";
-import { Pricing } from "@/components/sections/pricing";
+import { Sumo360 } from "@/components/sections/sumo360";
+import { Craftsmanship } from "@/components/sections/craftsmanship";
 import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <About />
       <Services />
-      <Pricing />
+      <Sumo360 />
+      <Craftsmanship />
       <Contact />
     </>
   );

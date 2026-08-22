@@ -3,11 +3,7 @@ import Link from "next/link";
 const FOOTER_LINKS = [
   {
     heading: "Company",
-    links: [
-      { href: "#about", label: "About" },
-      { href: "#services", label: "Services" },
-      { href: "#pricing", label: "Pricing" },
-    ],
+    links: [{ href: "#services", label: "Services" }],
   },
   {
     heading: "Get in touch",
@@ -23,30 +19,30 @@ export function SiteFooter() {
   return (
     <footer className="relative border-t border-border bg-surface">
       <div className="gradient-divider absolute inset-x-0 top-0" />
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="flex flex-col justify-between gap-12 md:flex-row">
+      <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
+        <div className="flex flex-col justify-between gap-6 md:flex-row">
           <div className="max-w-sm">
-            <Link href="#home" className="font-display text-xl font-bold tracking-tight">
+            <Link href="#home" className="font-display text-base font-bold tracking-tight">
               Super<span className="gradient-text">Sumo</span>
             </Link>
-            <p className="mt-4 text-sm text-foreground-muted">
+            <p className="mt-2 text-xs text-foreground-muted">
               Modern software solutions revolutionizing digital experiences
               — School ERP, Smart Bus, Sumo Kids, Book Sumo, and Sumo360°.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-12 sm:gap-20">
+          <div className="grid grid-cols-2 gap-8 sm:gap-12">
             {FOOTER_LINKS.map((group) => (
               <div key={group.heading}>
-                <h3 className="font-display text-sm font-bold uppercase tracking-wide text-foreground-muted">
+                <h3 className="font-display text-xs font-bold uppercase tracking-wide text-foreground-muted">
                   {group.heading}
                 </h3>
-                <ul className="mt-4 space-y-3">
+                <ul className="mt-2 space-y-1.5">
                   {group.links.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-foreground-muted transition-colors hover:text-violet"
+                        className="text-xs text-foreground-muted transition-colors hover:text-violet"
                       >
                         {link.label}
                       </Link>
@@ -58,7 +54,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-sm text-foreground-muted sm:flex-row">
+        <div className="mt-6 flex flex-col items-center justify-between gap-3 border-t border-border pt-4 text-xs text-foreground-muted sm:flex-row">
           <p>&copy; {new Date().getFullYear()} Super Sumo. All rights reserved.</p>
         </div>
       </div>

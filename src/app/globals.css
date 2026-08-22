@@ -29,7 +29,7 @@
   --color-foreground-muted: var(--foreground-muted);
   --color-border: var(--border-color);
 
-  --font-display: var(--font-space-grotesk);
+  --font-display: var(--font-creato-display);
   --font-body: var(--font-work-sans);
 }
 
@@ -147,15 +147,4 @@ li {
     0 8px 32px rgba(139, 92, 246, 0.18);
 }
 
-/* Gradient bars background — staggered pulse used by the hero equalizer */
-@keyframes gradient-bar-pulse {
-  0%,
-  100% {
-    opacity: 0.25;
-    transform: scaleY(0.85);
-  }
-  50% {
-    opacity: 0.75;
-    transform: scaleY(1.1);
-  }
-}
+

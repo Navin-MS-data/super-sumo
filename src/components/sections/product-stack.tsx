@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import {
-  BarChart3,
   Bus,
   BookOpen,
   GraduationCap,
@@ -13,6 +12,11 @@ import type { gsap } from "gsap";
 
 type Tone = "violet" | "ice" | "indigo" | "obsidian" | "lavender";
 
+type Stat = {
+  value: string;
+  label: string;
+};
+
 type Product = {
   index: string;
   title: string;
@@ -20,48 +24,95 @@ type Product = {
   body: string;
   icon: LucideIcon;
   tone: Tone;
+  tags?: string[];
+  stats?: Stat[];
+  ctaLabel?: string;
 };
 
 const PRODUCTS: Product[] = [
   {
     index: "01",
     title: "School ERP",
-    lede: "Turn your school into a digital powerhouse.",
-    body: "A complete educational management platform trusted by 200+ schools and 50K+ students — admissions, academics, attendance, and administration in one place.",
+    lede: "Complete Educational Ecosystem",
+    body: "Revolutionary school management platform that transforms administrative complexity into seamless digital experiences.",
     icon: GraduationCap,
     tone: "violet",
+    tags: [
+      "AI-Powered Analytics",
+      "Real-time Insights",
+      "Parent Engagement",
+      "Academic Excellence",
+      "Digital Transformation",
+    ],
+    stats: [
+      { value: "200+", label: "schools" },
+      { value: "50K+", label: "students" },
+      { value: "99%", label: "satisfaction" },
+    ],
+    ctaLabel: "Experience School ERP",
   },
   {
     index: "02",
     title: "Smart Bus",
-    lede: "AI-powered transportation, tracked live.",
-    body: "Live GPS tracking, route optimization, and safety alerts for student and staff transport — managing 1000+ buses with confidence.",
+    lede: "Next-Gen School Transportation",
+    body: "AI-powered transportation management with real-time tracking, predictive maintenance, and safety-first design.",
     icon: Bus,
     tone: "ice",
+    tags: [
+      "GPS Precision",
+      "AI Route Optimization",
+      "Safety Protocols",
+      "Parent Peace of Mind",
+      "Real-time Updates",
+    ],
+    stats: [
+      { value: "1000+", label: "buses" },
+      { value: "5K+", label: "routes" },
+      { value: "100%", label: "safety" },
+    ],
+    ctaLabel: "Experience Smart Bus",
   },
   {
     index: "03",
     title: "Sumo Kids",
-    lede: "Adaptive learning built for young minds.",
-    body: "An adaptive learning platform used by 25K+ children, personalizing the path for every young learner with interactive lessons and progress tracking.",
+    lede: "Future of Child Learning",
+    body: "Immersive learning experiences powered by AI, gamification, and adaptive learning technologies.",
     icon: BookOpen,
     tone: "indigo",
+    tags: [
+      "AI Adaptive Learning",
+      "Immersive Content",
+      "Progress Intelligence",
+      "Parent Partnership",
+      "Joy in Learning",
+    ],
+    stats: [
+      { value: "25K+", label: "children" },
+      { value: "10K+", label: "lessons" },
+      { value: "95%", label: "engagement" },
+    ],
+    ctaLabel: "Experience Sumo Kids",
   },
   {
     index: "04",
     title: "Book Sumo",
-    lede: "Hospitality management, streamlined.",
-    body: "Hotel management software powering 150+ hotels — bookings, front-desk operations, housekeeping, and guest experience in one system.",
+    lede: "Hotel Booking & Management Software",
+    body: "Comprehensive hotel management platform for walk-ins, advance bookings, and real-time room status tracking with detailed guest analytics.",
     icon: Hotel,
     tone: "obsidian",
-  },
-  {
-    index: "05",
-    title: "Sumo360°",
-    lede: "Business intelligence across your organization.",
-    body: "Staff management, attendance, financial control, and analytics for 500+ organizations — one dashboard for the whole business.",
-    icon: BarChart3,
-    tone: "lavender",
+    tags: [
+      "Room Status Management",
+      "Guest History Tracking",
+      "Booking Intelligence",
+      "Real-time Analytics",
+      "Contact Management",
+    ],
+    stats: [
+      { value: "150+", label: "hotels" },
+      { value: "25K+", label: "bookings" },
+      { value: "98%", label: "efficiency" },
+    ],
+    ctaLabel: "Experience Book Sumo",
   },
 ];
 
@@ -198,24 +249,24 @@ export function ProductStack() {
   return (
     <div
       ref={sectionRef}
-      className="relative flex min-h-screen flex-col items-center overflow-hidden bg-background px-6 py-14 text-white lg:px-8"
+      className="relative flex min-h-screen flex-col items-center overflow-hidden bg-background px-6 pb-16 pt-28 text-white lg:px-8"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(139,92,246,0.22),_transparent_60%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_85%,_rgba(79,70,229,0.15),_transparent_50%)]" />
 
-      <div className="relative z-10 mb-8 mt-6 text-center sm:mb-14">
+      <div className="relative z-10 mb-3 text-center sm:mb-4">
         <span className="font-display text-sm font-medium uppercase tracking-wide text-violet">
           The suite
         </span>
         <h3 className="mt-3 text-3xl font-bold sm:text-4xl">
-          Five products, one platform
+          Four products, one platform
         </h3>
       </div>
 
       <div
         ref={deckRef}
         className="relative z-10 my-auto w-full max-w-5xl"
-        style={{ height: "min(64vh, 560px)" }}
+        style={{ height: "min(66vh, 580px)" }}
       >
         {PRODUCTS.map((product, i) => (
           <div
@@ -225,7 +276,7 @@ export function ProductStack() {
             }}
             className={`absolute inset-0 grid grid-cols-1 gap-6 rounded-3xl p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),inset_0_-1px_1px_rgba(0,0,0,0.2),0_18px_50px_rgba(0,0,0,0.35)] will-change-transform sm:p-9 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 ${TONE_CLASSES[product.tone]}`}
           >
-            <div className="flex min-w-0 flex-col">
+            <div className="flex min-w-0 flex-col overflow-y-auto">
               <div className="mb-2 flex items-start justify-between gap-4">
                 <h4 className="font-display text-3xl font-bold sm:text-5xl">
                   {product.title}
@@ -234,17 +285,44 @@ export function ProductStack() {
                   {product.index}
                 </span>
               </div>
-              <p className="mb-auto max-w-[28ch] text-sm opacity-75 sm:text-base">
+              <p className="max-w-[28ch] text-sm opacity-75 sm:text-base">
                 {product.lede}
               </p>
-              <p className="my-6 max-w-[42ch] text-sm leading-relaxed opacity-85">
+              <p className="my-4 max-w-[42ch] text-sm leading-relaxed opacity-85">
                 {product.body}
               </p>
+
+              {product.tags && (
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {product.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className={`rounded-full px-3 py-1 text-xs font-medium ${TONE_MEDIA_CLASSES[product.tone]}`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {product.stats && (
+                <div className="mb-4 flex gap-6">
+                  {product.stats.map((stat) => (
+                    <div key={stat.label}>
+                      <p className="font-display text-xl font-bold sm:text-2xl">
+                        {stat.value}
+                      </p>
+                      <p className="text-xs opacity-70">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <a
                 href="#contact"
                 className="inline-flex w-fit items-center gap-3 rounded-full bg-obsidian/90 py-2 pl-4 pr-2 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
               >
-                Discover our approach
+                {product.ctaLabel ?? "Discover our approach"}
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-violet text-white">
                   →
                 </span>

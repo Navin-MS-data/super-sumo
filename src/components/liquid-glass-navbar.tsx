@@ -8,22 +8,24 @@ import { ButtonLink } from "@/components/ui/button";
 
 const NAV_LINKS = [
   { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
-  { href: "#pricing", label: "Pricing" },
   { href: "#contact", label: "Contact" },
 ];
 
 const barSpring = { type: "spring", bounce: 0.15, duration: 0.45 } as const;
 const tapSpring = { type: "spring", bounce: 0.2, duration: 0.25 } as const;
 
-// Glass surface: a translucent, blurred pill with a diagonal sheen and inset
-// edge highlights, standing in for the "liquid glass" gradient-chrome look.
+// Liquid glass: a highly translucent, refractive pill — layered specular
+// sheen + a soft violet tint pooling at the base + a thin bright top edge
+// to sell the glass bevel — over a strong blur/saturate so it reads as
+// glass bending the content behind it, not a flat tinted panel.
 const glassStyle = {
   background:
-    "linear-gradient(155deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 45%, rgba(139,92,246,0.08) 100%)",
+    "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.02) 55%, rgba(255,255,255,0.18) 100%), radial-gradient(120% 140% at 20% 120%, rgba(139,92,246,0.35), transparent 60%), rgba(10,10,16,0.32)",
   boxShadow:
-    "inset 0 1px 1px rgba(255,255,255,0.25), inset 0 -1px 1px rgba(0,0,0,0.35), 0 4px 24px rgba(0,0,0,0.35), 0 8px 40px rgba(139,92,246,0.12)",
+    "inset 0 1.5px 0 rgba(255,255,255,0.55), inset 0 -1px 1px rgba(0,0,0,0.25), inset 1px 0 0 rgba(255,255,255,0.15), inset -1px 0 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.35), 0 12px 48px rgba(139,92,246,0.18)",
+  backdropFilter: "blur(28px) saturate(200%) brightness(1.08) contrast(1.05)",
+  WebkitBackdropFilter: "blur(28px) saturate(200%) brightness(1.08) contrast(1.05)",
 };
 
 export function LiquidGlassNavbar() {
@@ -34,18 +36,41 @@ export function LiquidGlassNavbar() {
     const sections = NAV_LINKS.map((link) =>
       document.getElementById(link.href.slice(1))
     ).filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(entry.target.id);
+    // Reference line sits just below the fixed navbar. The active link is
+    // whichever section's top has most recently scrolled past it — this
+    // stays correct regardless of how tall a section is (e.g. the pinned
+    // product deck inside Services), unlike a fixed-band intersection
+    // check, which can miss updates when in-between, un-tracked sections
+    // (Sumo360, Craftsmanship) are taller than the viewport.
+    const REFERENCE_Y = 96;
+    let ticking = false;
+
+    function updateActive() {
+      ticking = false;
+      let current = sections[0].id;
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= REFERENCE_Y) {
+          current = section.id;
         }
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
-    );
+      }
+      setActive(current);
+    }
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateActive);
+    }
+
+    updateActive();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -57,16 +82,16 @@ export function LiquidGlassNavbar() {
   }, []);
 
   return (
-    <div className="fixed inset-x-0 top-5 z-50 flex justify-center px-4">
-      <div className="w-full max-w-3xl">
+    <div className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+      <div className="w-full max-w-xl">
         {/* Pill */}
         <div
-          className="relative flex items-center justify-between gap-4 rounded-full border border-white/15 px-5 py-3 backdrop-blur-2xl"
+          className="relative flex items-center justify-between gap-3 rounded-full border border-white/25 px-3.5 py-1.5 backdrop-blur-2xl"
           style={glassStyle}
         >
           <Link
             href="#home"
-            className="font-display shrink-0 whitespace-nowrap text-base font-bold tracking-tight text-white"
+            className="font-display shrink-0 whitespace-nowrap text-sm font-bold tracking-tight text-white"
           >
             Super<span className="gradient-text">Sumo</span>
           </Link>
@@ -79,7 +104,7 @@ export function LiquidGlassNavbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-medium"
+                  className="relative whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium"
                 >
                   {isActive && (
                     <motion.span
@@ -94,11 +119,12 @@ export function LiquidGlassNavbar() {
                   )}
                   <span
                     className={clsx(
-                      "relative z-10 transition-colors",
+                      "relative z-10 whitespace-nowrap transition-colors",
                       isActive
-                        ? "text-violet"
+                        ? "text-white"
                         : "text-white/75 hover:text-white"
                     )}
+                    style={{ textShadow: "0 1px 4px rgba(0,0,0,0.75)" }}
                   >
                     {link.label}
                   </span>
@@ -108,7 +134,7 @@ export function LiquidGlassNavbar() {
           </nav>
 
           <div className="hidden shrink-0 md:block">
-            <ButtonLink href="#contact" className="px-4 py-2 text-sm">
+            <ButtonLink href="#contact" className="px-3 py-1 text-xs">
               Get Started
             </ButtonLink>
           </div>
@@ -120,7 +146,7 @@ export function LiquidGlassNavbar() {
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
             whileTap={{ scale: 0.9, transition: tapSpring }}
-            className="flex h-9 w-9 shrink-0 flex-col items-center justify-center gap-[5px] rounded-full bg-white/10 md:hidden"
+            className="flex h-7 w-7 shrink-0 flex-col items-center justify-center gap-1 rounded-full bg-white/10 md:hidden"
           >
             <motion.span
               className="block h-[2px] w-4 rounded-full bg-white"
@@ -143,7 +169,7 @@ export function LiquidGlassNavbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={barSpring}
-              className="mt-3 flex flex-col gap-1 rounded-3xl border border-white/15 p-3 backdrop-blur-2xl md:hidden"
+              className="mt-3 flex flex-col gap-1 rounded-3xl border border-white/25 p-3 backdrop-blur-2xl md:hidden"
               style={glassStyle}
             >
               {NAV_LINKS.map((link) => {
@@ -166,9 +192,10 @@ export function LiquidGlassNavbar() {
                       className={clsx(
                         "relative z-10 transition-colors",
                         isActive
-                          ? "text-violet"
+                          ? "text-white"
                           : "text-white/75 hover:text-white"
                       )}
+                      style={{ textShadow: "0 1px 4px rgba(0,0,0,0.75)" }}
                     >
                       {link.label}
                     </span>

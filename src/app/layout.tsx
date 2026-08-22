@@ -1,14 +1,29 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Work_Sans } from "next/font/google";
+import { Work_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { LiquidGlassNavbar } from "@/components/liquid-glass-navbar";
 import { SiteFooter } from "@/components/site-footer";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["500", "700"],
+const creatoDisplay = localFont({
+  variable: "--font-creato-display",
+  src: [
+    { path: "../fonts/CreatoDisplay-Thin.otf", weight: "100", style: "normal" },
+    { path: "../fonts/CreatoDisplay-ThinItalic.otf", weight: "100", style: "italic" },
+    { path: "../fonts/CreatoDisplay-Light.otf", weight: "300", style: "normal" },
+    { path: "../fonts/CreatoDisplay-LightItalic.otf", weight: "300", style: "italic" },
+    { path: "../fonts/CreatoDisplay-Regular.otf", weight: "400", style: "normal" },
+    { path: "../fonts/CreatoDisplay-RegularItalic.otf", weight: "400", style: "italic" },
+    { path: "../fonts/CreatoDisplay-Medium.otf", weight: "500", style: "normal" },
+    { path: "../fonts/CreatoDisplay-MediumItalic.otf", weight: "500", style: "italic" },
+    { path: "../fonts/CreatoDisplay-Bold.otf", weight: "700", style: "normal" },
+    { path: "../fonts/CreatoDisplay-BoldItalic.otf", weight: "700", style: "italic" },
+    { path: "../fonts/CreatoDisplay-ExtraBold.otf", weight: "800", style: "normal" },
+    { path: "../fonts/CreatoDisplay-ExtraBoldItalic.otf", weight: "800", style: "italic" },
+    { path: "../fonts/CreatoDisplay-Black.otf", weight: "900", style: "normal" },
+    { path: "../fonts/CreatoDisplay-BlackItalic.otf", weight: "900", style: "italic" },
+  ],
 });
 
 const workSans = Work_Sans({
@@ -27,7 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${workSans.variable} h-full antialiased`}
+      className={`${creatoDisplay.variable} ${workSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-body">
         <SmoothScrollProvider>
