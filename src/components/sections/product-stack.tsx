@@ -249,7 +249,7 @@ export function ProductStack() {
   return (
     <div
       ref={sectionRef}
-      className="relative flex min-h-screen flex-col items-center overflow-hidden bg-background px-6 pb-16 pt-28 text-white lg:px-8"
+      className="relative flex min-h-screen flex-col items-center overflow-hidden bg-background px-4 pb-12 pt-24 text-white sm:px-6 sm:pb-16 sm:pt-28 lg:px-8"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(139,92,246,0.22),_transparent_60%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_85%,_rgba(79,70,229,0.15),_transparent_50%)]" />

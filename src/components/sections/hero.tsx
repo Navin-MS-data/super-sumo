@@ -15,19 +15,19 @@ export function Hero() {
         <LiquidShaderTwist className="h-full w-full" />
       </div>
 
-      <div className="relative mx-auto max-w-3xl px-6 py-32 text-center lg:py-40">
-        <span className="font-display inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/80">
+      <div className="relative mx-auto max-w-3xl px-6 py-20 text-center sm:py-32 lg:py-40">
+        <span className="font-display inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/80 sm:text-sm">
           <Sparkles size={14} className="text-violet" />
           Modern software solutions
         </span>
 
-        <h1 className="mt-8 text-6xl font-bold leading-[1.05] sm:text-7xl">
+        <h1 className="mt-8 text-4xl font-bold leading-[1.1] sm:text-6xl sm:leading-[1.05] lg:text-7xl">
           <span className="text-[#ddd6fe]">Revolutionizing</span>
           <br />
           <span className="gradient-text">Digital Experiences</span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-[#c4b5fd]/70">
+        <p className="mx-auto mt-6 max-w-md px-2 text-base leading-relaxed text-[#c4b5fd]/70 sm:text-lg">
           We craft extraordinary software solutions that transform schools
           into digital powerhouses and businesses into market leaders.
           Experience the future of technology today.

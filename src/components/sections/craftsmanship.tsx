@@ -64,19 +64,19 @@ export function Craftsmanship() {
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_55%_50%_at_50%_0%,_rgba(139,92,246,0.16),_transparent_60%)]" />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-24 lg:px-8">
+      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <span className="font-display text-sm font-medium uppercase tracking-wide text-violet">
             Custom Craftsmanship
           </span>
-          <h2 className="mt-3 text-4xl font-bold sm:text-5xl">
+          <h2 className="mt-3 text-3xl font-bold sm:text-4xl lg:text-5xl">
             Bespoke software solutions
             <span className="gradient-text"> engineered for your unique vision</span>
           </h2>
         </div>
 
         {/* Cards row — the active step's card is enlarged and fully shown */}
-        <div className="mt-16 flex flex-col items-stretch gap-6 lg:flex-row lg:items-end">
+        <div className="mt-10 flex flex-col items-stretch gap-4 sm:mt-16 sm:gap-6 lg:flex-row lg:items-end">
           {CARDS.map((card, i) => {
             const isActive = i === active;
             return (
@@ -87,8 +87,8 @@ export function Craftsmanship() {
                 layout
                 transition={cardSpring}
                 className={clsx(
-                  "relative overflow-hidden rounded-3xl bg-white/5 p-8 text-left text-white shadow-[0_24px_60px_-12px_rgba(0,0,0,0.55)] sm:p-10",
-                  isActive ? "flex-[2.2]" : "flex-1 opacity-70 hover:opacity-100"
+                  "relative overflow-hidden rounded-3xl bg-white/5 p-6 text-left text-white shadow-[0_24px_60px_-12px_rgba(0,0,0,0.55)] sm:p-8 lg:p-10",
+                  isActive ? "lg:flex-[2.2]" : "lg:flex-1 opacity-70 hover:opacity-100"
                 )}
               >
                 {/* Gradient fill fades in/out on its own layer, instead of
@@ -154,7 +154,7 @@ export function Craftsmanship() {
         </div>
 
         {/* Baseline with numbered step markers */}
-        <div className="relative mt-12 flex items-center justify-center gap-16">
+        <div className="relative mt-12 flex items-center justify-center gap-8 sm:gap-16">
           <div className="pointer-events-none absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-border" />
           {CARDS.map((card, i) => {
             const isActive = i === active;
@@ -165,7 +165,7 @@ export function Craftsmanship() {
                 onClick={() => setActive(i)}
                 aria-label={`Show ${card.title}`}
                 className={clsx(
-                  "font-display relative z-10 flex h-11 w-11 items-center justify-center rounded-full text-sm font-bold transition-colors duration-300",
+                  "font-display relative z-10 flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-colors duration-300 sm:h-11 sm:w-11",
                   isActive
                     ? "bg-violet text-white"
                     : "border border-border bg-background text-foreground-muted hover:text-foreground"

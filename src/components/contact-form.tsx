@@ -14,7 +14,7 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="liquid-glass flex flex-col items-center justify-center rounded-2xl p-12 text-center">
+      <div className="liquid-glass flex flex-col items-center justify-center rounded-2xl p-8 text-center sm:p-12">
         <CheckCircle2 size={40} className="text-violet" />
         <h3 className="mt-4 text-xl font-bold">Message sent</h3>
         <p className="mt-2 text-sm text-foreground-muted">
@@ -28,7 +28,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="liquid-glass rounded-2xl p-8"
+      className="liquid-glass rounded-2xl p-5 sm:p-8"
     >
       <div className="grid gap-6 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
