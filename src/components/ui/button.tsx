@@ -5,8 +5,7 @@ import type { ComponentProps } from "react";
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary:
-    "bg-violet text-white hover:bg-[#7c4feb] shadow-[0_8px_24px_-8px_rgba(139,92,246,0.6)]",
+  primary: "gradient-liquid-glass text-white",
   secondary:
     "bg-transparent text-foreground border border-border hover:border-violet hover:text-violet",
   ghost: "bg-transparent text-foreground-muted hover:text-foreground",

@@ -33,17 +33,10 @@ export function Hero() {
           Experience the future of technology today.
         </p>
 
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-10 flex items-center justify-center">
           <ButtonLink href="#contact">
-            Get Started
+            Unleash Your Journey
             <Rocket size={16} />
-          </ButtonLink>
-          <ButtonLink
-            href="#services"
-            variant="secondary"
-            className="border-white/20 text-white hover:border-violet hover:text-violet"
-          >
-            Explore Products
           </ButtonLink>
         </div>
       </div>

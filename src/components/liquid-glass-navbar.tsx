@@ -44,7 +44,10 @@ export function LiquidGlassNavbar() {
     // product deck inside Services), unlike a fixed-band intersection
     // check, which can miss updates when in-between, un-tracked sections
     // (Sumo360, Craftsmanship) are taller than the viewport.
-    const REFERENCE_Y = 96;
+    // Set below the nav-click scroll target's resting position (~160px,
+    // since the click handler's own offset stacks with the sections'
+    // scroll-mt-20) so a clicked link's section actually crosses the line.
+    const REFERENCE_Y = 170;
     let ticking = false;
 
     function updateActive() {
@@ -104,6 +107,7 @@ export function LiquidGlassNavbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  onClick={() => setActive(link.href.slice(1))}
                   className="relative whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium"
                 >
                   {isActive && (
@@ -135,7 +139,7 @@ export function LiquidGlassNavbar() {
 
           <div className="hidden shrink-0 md:block">
             <ButtonLink href="#contact" className="px-3 py-1 text-xs">
-              Get Started
+              Contact Us
             </ButtonLink>
           </div>
 
@@ -178,7 +182,10 @@ export function LiquidGlassNavbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setActive(link.href.slice(1));
+                      setOpen(false);
+                    }}
                     className="relative w-full rounded-xl px-4 py-2.5 text-sm font-medium"
                   >
                     {isActive && (
@@ -207,7 +214,7 @@ export function LiquidGlassNavbar() {
                 onClick={() => setOpen(false)}
                 className="mt-2 justify-center"
               >
-                Get Started
+                Contact Us
               </ButtonLink>
             </motion.div>
           )}
